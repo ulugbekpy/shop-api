@@ -7,6 +7,12 @@ class ProductSerializer(serializers.ModelSerializer):
         model = Product
         fields = '__all__'
 
+    def create(self, validated_data):
+        product = Product(**validated_data)
+        product.other = 1
+        product.save()
+        return product
+
 
 class CollectionSerializer(serializers.ModelSerializer):
     class Meta:
