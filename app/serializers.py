@@ -5,7 +5,7 @@ from .models import Product, Collection
 class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
-        fields = '__all__'
+        fields = ['title', 'slug', 'description', 'price']
 
     def create(self, validated_data):
         product = Product(**validated_data)

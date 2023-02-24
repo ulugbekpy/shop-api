@@ -23,4 +23,4 @@ def product_list(request):
         serializer = ProductSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.validated_data
-        return 'something'
+        return (serializer.data, status.HTTP_201_CREATED)
