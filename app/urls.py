@@ -1,11 +1,36 @@
-from django.urls import path
-from .views import (product_detail, ProductList,
-                    collection_list, collection_detail)
+from rest_framework import permissions
+from drf_yasg.views import get_schema_view
+from drf_yasg import openapi
+from django.urls import re_path
+from .views import ProductViewSet, CollectionViewSet
+
+from rest_framework.routers import DefaultRouter
+
+router = DefaultRouter()
+router.register('products', ProductViewSet)
+router.register('collections', CollectionViewSet)
+
+urlpatterns = router.urls
+
+
+schema_view = get_schema_view(
+    openapi.Info(
+        title="Shop API",
+        default_version='v1',
+        description="Shop API my rest_framework journey",
+        terms_of_service="https://www.google.com/policies/terms/",
+        contact=openapi.Contact(email="contact@snippets.local"),
+        license=openapi.License(name="BSD License"),
+    ),
+    public=True,
+    permission_classes=[permissions.AllowAny],
+)
 
 urlpatterns = [
-    path('products/<int:id>/', product_detail, name='product-detail'),
-    path('products/list/', ProductList.as_view(), name='product-list'),
-
-    path('collections/<int:id>/', collection_detail),
-    path('collections/list/', collection_list),
+    re_path(r'^swagger(?P<format>\.json|\.yaml)$',
+            schema_view.without_ui(cache_timeout=0), name='schema-json'),
+    re_path(r'^swagger/$', schema_view.with_ui('swagger',
+                                               cache_timeout=0), name='schema-swagger-ui'),
+    re_path(r'^redoc/$', schema_view.with_ui('redoc',
+                                             cache_timeout=0), name='schema-redoc'),
 ]

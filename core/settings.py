@@ -1,11 +1,11 @@
 import os
-# import environ
+import environ
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# environ.Env.read_env(BASE_DIR, '.env')
+environ.Env.read_env(BASE_DIR, '.env')
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'nwriuonsj21390e3404rj04ifmcmc94'
@@ -31,6 +31,7 @@ INSTALLED_APPS = [
 INSTALLED_APPS += [
     'app',
     'rest_framework',
+    'drf_yasg',
 ]
 
 MIDDLEWARE = [
@@ -70,7 +71,7 @@ WSGI_APPLICATION = 'core.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': BASE_DIR / 'shop.sqlite3',
     }
 }
 
@@ -110,6 +111,11 @@ USE_TZ = False
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, '/static/')
+
+SWAGGER_SETTINGS = {
+    'VALIDATOR_URL': 'http://localhost:8189',
+}
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field

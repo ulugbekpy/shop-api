@@ -128,3 +128,5 @@ dmypy.json
 # Pyre type checker
 .pyre/
 Pipfile
+makefile
+shop.sqlite3

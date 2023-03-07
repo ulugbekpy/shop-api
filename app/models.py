@@ -25,6 +25,9 @@ class Product(models.Model):
     class Meta:
         ordering = ['title']
 
+    def __str__(self) -> str:
+        return self.title
+
 
 class Customer(models.Model):
     MEMBERSHIP_CHOICES = [

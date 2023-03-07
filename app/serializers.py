@@ -24,5 +24,6 @@ class CollectionSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         collection = Collection(**validated_data)
+        collection.other = 1
         collection.save()
         return collection
